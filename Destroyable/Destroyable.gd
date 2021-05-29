@@ -8,7 +8,7 @@ onready var anim_player : AnimationPlayer= $AnimationPlayer
 onready var collision_shape : CollisionShape2D = $CollisionShape2D
 onready var animated_sprite : AnimatedSprite = $AnimatedSprite
 onready var area : Area2D = $Area2D
-
+onready var light : Light2D = $Light2D
 
 var can_recieve_damage = true
 
@@ -30,6 +30,7 @@ func destroy():
 	
 	animated_sprite.show()
 	animated_sprite.play()
+	light.set_deferred("enabled", false)
 	collision_shape.set_deferred("disabled", true)
 	area.set_monitoring(false)
 	area.get_node("CollisionShape2D").set_deferred("disabled", true)

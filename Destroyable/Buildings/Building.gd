@@ -9,7 +9,7 @@ func _ready():
 	sprite.set_texture(load(buildings_path + str(rng) + ".png" ))
 	for i in 1:
 		tilemap.set_cell((rand_range(-3,3)),1,
-		rand_range(35,39))
+		rand_range(35,41))
 	#init_explosion()
 	pass 
 

@@ -1,9 +1,12 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=3]
+
+[sub_resource type="OccluderPolygon2D" id=4]
+polygon = PoolVector2Array( -19, 18, -19, -18, 18, -18, 18, 18 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" groups=[
 "Player",
@@ -21,3 +24,17 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 3 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 4 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -256.0
+margin_top = -144.0
+margin_right = -55.0
+margin_bottom = -130.0
+text = "Press Space to reload scene"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
