@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Destroyable/Destroyable.gd" type="Script" id=1]
 [ext_resource path="res://Assets/fire/pixel-explosion-gif-8-export12.png" type="Texture" id=2]
@@ -40,8 +40,9 @@
 [ext_resource path="res://Assets/fire/pixel-explosion-gif-8-export7.png" type="Texture" id=38]
 [ext_resource path="res://Assets/fire/pixel-explosion-gif-8-export24.png" type="Texture" id=39]
 
-[sub_resource type="Animation" id=1]
-resource_name = "recieve_damage"
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="Animation" id=2]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -68,7 +69,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 34 ), ExtResource( 13 ), ExtResource( 15 ), ExtResource( 6 ), ExtResource( 14 ), ExtResource( 38 ), ExtResource( 4 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 35 ), ExtResource( 2 ), ExtResource( 22 ), ExtResource( 33 ), ExtResource( 36 ), ExtResource( 32 ), ExtResource( 17 ), ExtResource( 37 ), ExtResource( 25 ), ExtResource( 24 ), ExtResource( 16 ), ExtResource( 23 ), ExtResource( 19 ), ExtResource( 39 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 26 ), ExtResource( 18 ), ExtResource( 28 ), ExtResource( 27 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ) ],
 "loop": true,
@@ -76,9 +77,12 @@ animations = [ {
 "speed": 30.0
 } ]
 
-[node name="Destroyable" type="StaticBody2D" groups=[
+[sub_resource type="RectangleShape2D" id=4]
+
+[node name="Destroyable" type="RigidBody2D" groups=[
 "Destroyable",
 ]]
+mode = 1
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -87,13 +91,20 @@ position = Vector2( 3, 0 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -10 )
 scale = Vector2( 2, 2 )
+shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/recieve_damage = SubResource( 1 )
+anims/recieve_damage = SubResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 20, 0 )
 scale = Vector2( 0.5, 0.5 )
-frames = SubResource( 2 )
+frames = SubResource( 3 )
 
-[connection signal="mouse_entered" from="." to="." method="_on_Destroyable_mouse_entered"]
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2( 3, 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

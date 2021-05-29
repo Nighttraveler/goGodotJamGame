@@ -1,7 +1,7 @@
 extends Node2D
 
 var building_scene = preload("res://Destroyable/Buildings/Building.tscn")
-
+var explode_script = preload("res://Destroyable/explode_object.gd")
 export var block_size : Vector2 = Vector2(10,3)
 export var x_step = 75
 export var y_step = 150
@@ -13,6 +13,7 @@ func _ready():
 		for y in rect2.size.y:
 			if rand_range(0,1) < 0.9:
 				var building = building_scene.instance()
+				#building.set_script(explode_script)
 				building.set_position(rect2.position + Vector2(x* x_step, y * y_step))
 				add_child(building)
 

@@ -26,4 +26,3 @@ func _ready():
 				var building = block_scene.instance()
 				building.set_position(rect2.position + Vector2(x* x_step, y * y_step))
 				add_child(building)
-				
